@@ -1,83 +1,30 @@
-# dbunit
-<!DOCTYPE html>
-<html>
-<head>
-	<link rel="stylesheet" type="text/css" href="css/register1.css">
-	<title>USER REGISTRATION</title>
-</head>
-<form method="POST"action="regis.php">
-<body>
-	<table>
-		<tr>
-			<td>
-				SELLER NAME : 
-			</td>
-			<td>
-				<input type="text" name ="name" required>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				ADDRESS :
-			</td>
-			<td>
-				<input type="text" name="address" required>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				CITY
-			</td>
-			<td>
-				<input type="text" name="city" required>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				PHONE NUMBER
-			</td>
-			<td>
-				<input type="text" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="phone" required>
-			</td>
-		</tr>
-			<td>
-				EMAIL ADDRESS
-			</td>
-			<td>
-				<input type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name="email" required>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				VEHICLE MAKE 
-			</td>
-			<td>
-				<input type="text" name="make" required>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Model
-			</td>
-			<td>
-				<input type="text" name="model" required>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				YEAR
-			</td>
-			<td>
-				<input type="text" name="year" required>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<button type="submit"  name="submit">Submit it</button><br><br>
-				<button type="submit"><a href="http://localhost/display.php">Search</a></button>
-			</td>
-		</tr>
-	</table>
-</body>
-</form>
-</html>
+<?php
+$host="localhost";
+$user="root";
+$pass="";
+$data="register";
+$connect=mysqli_connect($host,$user,$pass,$data);
+$sqlquery="INSERT INTO registernew(sname,adres,city,phnum,email,vehmke,vehmod,vehyr)VALUES('".$_POST['name']."','".$_POST['address']."','".$_POST['city']."','".$_POST['phone']."','".$_POST['email']."','".$_POST['make']."','".$_POST['model']."','".$_POST['year']."')";
+$response=$connect->query($sqlquery);
+mysqli_close($connect);
+$namev=$_POST['name'];
+$addresssv=$_POST['address'];
+$cityv=$_POST['city'];
+$phonev=$_POST['phone'];
+$emailv=$_POST['email'];
+$makev=$_POST['make'];
+$makev=str_replace(" ", "-", $makev);
+$modelv=$_POST['model'];
+$modelv=str_replace(" ", "-", $modelv);
+$yearv=$_POST['year'];
+$jdpower="http://www.jdpower.com/cars/".$makev."/".$modelv."/".$yearv."/";
+echo "<label>Seller Name:</label><label>$namev<br></label>";
+echo "<label>Address:</label><label>$addresssv<br></label>";
+echo "<label>City:</label><label>$cityv<br></label>";
+echo "<label>Phone:</label><label>$phonev<br></label>";
+echo "<label>Email:</label><label>$emailv<br></label>";
+echo "<label>Make:</label><label>$makev<br></label>";
+echo "<label>Model:</label><label>$modelv<br></label>";
+echo "<label>Year:</label><label>$yearv<br></label>";
+echo "<label>More info:</label><label><a href='$jdpower'>$jdpower</a></label>";
+?>
