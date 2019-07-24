@@ -3,28 +3,16 @@ $host="localhost";
 $user="root";
 $pass="";
 $data="register";
-$connect=mysqli_connect($host,$user,$pass,$data);
-$sqlquery="INSERT INTO registernew(sname,adres,city,phnum,email,vehmke,vehmod,vehyr)VALUES('".$_POST['name']."','".$_POST['address']."','".$_POST['city']."','".$_POST['phone']."','".$_POST['email']."','".$_POST['make']."','".$_POST['model']."','".$_POST['year']."')";
-$response=$connect->query($sqlquery);
-mysqli_close($connect);
-$namev=$_POST['name'];
-$addresssv=$_POST['address'];
-$cityv=$_POST['city'];
-$phonev=$_POST['phone'];
-$emailv=$_POST['email'];
-$makev=$_POST['make'];
-$makev=str_replace(" ", "-", $makev);
-$modelv=$_POST['model'];
-$modelv=str_replace(" ", "-", $modelv);
-$yearv=$_POST['year'];
-$jdpower="http://www.jdpower.com/cars/".$makev."/".$modelv."/".$yearv."/";
-echo "<label>Seller Name:</label><label>$namev<br></label>";
-echo "<label>Address:</label><label>$addresssv<br></label>";
-echo "<label>City:</label><label>$cityv<br></label>";
-echo "<label>Phone:</label><label>$phonev<br></label>";
-echo "<label>Email:</label><label>$emailv<br></label>";
-echo "<label>Make:</label><label>$makev<br></label>";
-echo "<label>Model:</label><label>$modelv<br></label>";
-echo "<label>Year:</label><label>$yearv<br></label>";
-echo "<label>More info:</label><label><a href='$jdpower'>$jdpower</a></label>";
+$conn=mysqli_connect($host,$user,$pass,$data);
+
+$sql = "SELECT * FROM registernew";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+while($row = $result->fetch_assoc()) {
+echo"Seller Name:" . $row["sname"]. "&emsp;Address: " . $row["adres"]. "&emsp;City:" . $row["city"]."&emsp;Phone Number:".$row["phnum"]."&emsp;Email:".$row["email"]."&emsp;Vehicle Make:".$row["vehmke"]."&emsp;Vehicle Model:".$row["vehmod"]."&emsp;Vehicle Year:".$row["vehyr"]."<br>"; 
+
+}}
+else {
+echo "0 Result";
+}
 ?>
